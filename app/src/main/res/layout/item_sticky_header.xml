@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_4"
+    android:layout_marginBottom="@dimen/dp_8"
+    android:orientation="horizontal">
+
+    <TextView
+        style="@style/TextBoldProxima"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="SUN"
+        android:textAlignment="center" />
+
+    <TextView
+        style="@style/TextBoldProxima"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="MON"
+        android:textAlignment="center" />
+
+    <TextView
+        style="@style/TextBoldProxima"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="TUE"
+        android:textAlignment="center" />
+
+    <TextView
+        style="@style/TextBoldProxima"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="WED"
+        android:textAlignment="center" />
+
+    <TextView
+        style="@style/TextBoldProxima"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="THU"
+        android:textAlignment="center" />
+
+    <TextView
+        style="@style/TextBoldProxima"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="FRI"
+        android:textAlignment="center" />
+
+    <TextView
+        style="@style/TextBoldProxima"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="SAT"
+        android:textAlignment="center" />
+
+</LinearLayout>
