@@ -1,6 +1,6 @@
-plugins {
-    kotlin("jvm").version("1.4.31")
-}
+//plugins {
+//    kotlin("jvm").version("1.4.31")
+//}
 
 buildscript {
 //    val kotlin_version by extra("1.3.72")

@@ -10,22 +10,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.karleinstein.smoothcalendar.listener.OnSwipeListener
 import kotlinx.android.synthetic.main.winner_calendar_layout.view.*
 import org.threeten.bp.LocalDate
+import org.threeten.bp.Month
 
 class CustomCalendarAdapter(
-    val onSwipe: (swipeDirection: SwipeDirection, item: List<MonthWrapper>) -> Unit,
-    private val onDateClickListener: (monthWrapper: MonthWrapper) -> Unit
-) : BaseRecyclerAdapter<List<MonthWrapper>>(object :
-    DiffUtil.ItemCallback<List<MonthWrapper>>() {
+    val onSwipe: (SwipeDirection, MonthWrapper) -> Unit,
+    private val onMonth: (month: Month) -> Unit,
+    private val onDateClickListener: (dateWrapper: DateWrapper) -> Unit
+) : BaseRecyclerAdapter<MonthWrapper>(object :
+    DiffUtil.ItemCallback<MonthWrapper>() {
     override fun areItemsTheSame(
-        oldItem: List<MonthWrapper>,
-        newItem: List<MonthWrapper>
+        oldItem: MonthWrapper,
+        newItem: MonthWrapper
     ): Boolean {
-        return oldItem[0].months == newItem[0].months
+        return oldItem === newItem
     }
 
     override fun areContentsTheSame(
-        oldItem: List<MonthWrapper>,
-        newItem: List<MonthWrapper>
+        oldItem: MonthWrapper,
+        newItem: MonthWrapper
     ): Boolean {
         return oldItem == newItem
     }
@@ -38,11 +40,14 @@ class CustomCalendarAdapter(
     var isEnableScrolled = true
 
     override fun onBind(
-        itemView: View, item: List<MonthWrapper>, position: Int
+        itemView: View, item: MonthWrapper, position: Int
     ) {
         itemView.run {
             val dayCalendarAdapter =
-                DayCalendarAdapter(onDateClickListener = onDateClickListener)
+                DayCalendarAdapter(
+                    month = item.month.month,
+                    onDateClickListener = onDateClickListener
+                )
 
             val layoutManager = object : GridLayoutManager(context, 7) {
                 override fun canScrollVertically(): Boolean {
@@ -74,7 +79,7 @@ class CustomCalendarAdapter(
                     return false
                 }
             })
-            dayCalendarAdapter.submitList(item.toMutableList())
+            dayCalendarAdapter.submitList(item.dates)
             recycler_inside.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -89,9 +94,9 @@ class CustomCalendarAdapter(
     }
 
     private fun expand(adapter: DayCalendarAdapter, item: List<LocalDate>) {
-        val monthWrappers = mutableListOf<MonthWrapper>()
+        val monthWrappers = mutableListOf<DateWrapper>()
         item.forEach {
-            monthWrappers.add(MonthWrapper(it, isCollapsed = false))
+            monthWrappers.add(DateWrapper(it, isCollapsed = false))
         }
         adapter.submitList(null)
         adapter.submitList(monthWrappers)
@@ -102,9 +107,9 @@ class CustomCalendarAdapter(
         adapter: DayCalendarAdapter,
         item: List<LocalDate>
     ) {
-        val monthWrappers = mutableListOf<MonthWrapper>()
+        val monthWrappers = mutableListOf<DateWrapper>()
         item.forEach {
-            monthWrappers.add(MonthWrapper(it, isCollapsed = true))
+            monthWrappers.add(DateWrapper(it, isCollapsed = true))
         }
         adapter.submitList(null)
         adapter.submitList(monthWrappers)

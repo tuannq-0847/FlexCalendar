@@ -2,31 +2,38 @@ package com.karleinstein.smoothcalendar
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.karleinstein.smoothcalendar.utils.CalendarListener
-import kotlinx.android.synthetic.main.activity_main.*
 import org.threeten.bp.DayOfWeek
+import org.threeten.bp.LocalDate
+import org.threeten.bp.Month
 import org.threeten.bp.YearMonth
 
-class MainSmoothCalendar(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs) {
+class MainSmoothCalendar(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs),
+    CalendarListener {
 
     private var smoothCalendar: SmoothCalendar? = null
+
+    private var view: View? = null
 
     init {
         orientation = VERTICAL
         addCalendarView()
+        smoothCalendar?.setOnCalendarListener(this)
+        setTime(mutableListOf(DateWrapper(LocalDate.now())))
     }
 
     private fun addCalendarView() {
-        LayoutInflater.from(context).inflate(R.layout.item_sticky_header, this)
+        view = LayoutInflater.from(context).inflate(R.layout.layout_month, this)
+        LayoutInflater.from(context).inflate(R.layout.item_sticky_header2, this)
         smoothCalendar = SmoothCalendar(context, null)
         smoothCalendar?.isEnableScroll = true
         addView(smoothCalendar)
         val currentMonth = YearMonth.now()
         val daysOfWeek = DayOfWeek.values()
-        Log.d("Fuck", "-5: ${currentMonth.minusMonths(5)} +5: ${currentMonth.plusMonths(5)} ")
         smoothCalendar?.setup(
             currentMonth.minusMonths(5),
             currentMonth.plusMonths(5),
@@ -35,6 +42,27 @@ class MainSmoothCalendar(context: Context?, attrs: AttributeSet?) : LinearLayout
     }
 
     fun setOnCalendarListener(calendarListener: CalendarListener) {
-        smoothCalendar?.setOnCalendarListener(calendarListener)
+//        smoothCalendar?.setOnCalendarListener(calendarListener)
+    }
+
+    fun setTime(dateHistory: List<DateWrapper>) = smoothCalendar?.setTime(dateHistory)
+
+    override fun getMonth(month: Month) {
+
+    }
+
+    override fun onSnapPositionChange(data: MonthWrapper) {
+        val result = "${
+            data.month.month.name.lowercase().replaceFirstChar { it.uppercase() }
+        } ${data.month.year}"
+        view?.findViewById<TextView>(R.id.text_month)?.text = result
+    }
+
+    override fun onSwipe(direction: SwipeDirection, item: MonthWrapper) {
+
+    }
+
+    override fun onClickDateListener(dateWrapper: DateWrapper) {
+
     }
 }

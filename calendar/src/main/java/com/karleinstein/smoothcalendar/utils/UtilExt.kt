@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.SnapHelper
 import com.karleinstein.smoothcalendar.SmoothCalendar
 import org.threeten.bp.LocalDate
 
-fun SnapHelper.getSnapPosition(smoothCalendar: SmoothCalendar): Int{
+fun SnapHelper.getSnapPosition(smoothCalendar: SmoothCalendar): Int {
 
     val layoutManager = smoothCalendar.layoutManager ?: return RecyclerView.NO_POSITION
     val snapView = findSnapView(layoutManager) ?: return RecyclerView.NO_POSITION
@@ -15,6 +15,13 @@ fun SnapHelper.getSnapPosition(smoothCalendar: SmoothCalendar): Int{
 fun LocalDate.isToday(): Boolean {
     val today = LocalDate.now()
     if (this == today) {
+        return true
+    }
+    return false
+}
+
+fun LocalDate.isSameMonth(month: Int): Boolean {
+    if (month == this.monthValue) {
         return true
     }
     return false

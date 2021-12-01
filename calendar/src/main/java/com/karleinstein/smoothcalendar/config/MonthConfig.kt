@@ -1,10 +1,14 @@
 package com.karleinstein.smoothcalendar.config
 
+import com.karleinstein.smoothcalendar.DateWrapper
 import com.karleinstein.smoothcalendar.MonthWrapper
+import com.karleinstein.smoothcalendar.MonthYear
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
+import org.threeten.bp.Month
 import org.threeten.bp.YearMonth
 import org.threeten.bp.temporal.WeekFields
+import kotlin.reflect.full.memberProperties
 
 internal class MonthConfig {
     private val months = mutableListOf<List<LocalDate>>()
@@ -16,7 +20,7 @@ internal class MonthConfig {
         startMonth: YearMonth,
         endMonth: YearMonth,
         firstDayOfWeek: DayOfWeek
-    ): MutableList<List<MonthWrapper>> {
+    ): MutableList<MonthWrapper> {
         var currentMonth = startMonth
         while (currentMonth <= endMonth) {
             val localDate = generateBoundedDays(currentMonth, firstDayOfWeek)
@@ -74,31 +78,61 @@ internal class MonthConfig {
 
 fun MutableList<List<LocalDate>>.changeAllConfig(
     isCollapse: Boolean
-): MutableList<List<MonthWrapper>> {
-    val boundedMonthWrappers = mutableListOf<List<MonthWrapper>>()
+): MutableList<MonthWrapper> {
+    val boundedMonthWrappers = mutableListOf<MonthWrapper>()
     forEach {
-        val monthWrappers = mutableListOf<MonthWrapper>()
+        val dates = mutableListOf<DateWrapper>()
         it.forEach {
-            monthWrappers.add(MonthWrapper(it, isCollapsed = isCollapse))
+            dates.add(DateWrapper(it, isCollapsed = isCollapse))
         }
-        boundedMonthWrappers.add(monthWrappers)
+        val month = findTheMonth(dates)
+        boundedMonthWrappers.add(MonthWrapper(month, dates))
     }
     return boundedMonthWrappers
 }
 
-fun MutableList<List<MonthWrapper>>.changeConfig(
+private fun findTheMonth(dates: MutableList<DateWrapper>): MonthYear {
+    val mp = mutableMapOf<Month, Pair<Int, Int>>()
+    dates.forEach {
+        for (prop in DateWrapper::class.memberProperties) {
+            if (prop.name == "date") {
+                if (mp.containsKey((prop.get(it) as LocalDate).month)) {
+                    mp[(prop.get(it) as LocalDate).month] =
+                        Pair(
+                            (mp[(prop.get(it) as LocalDate).month]!!.first ?: 0) + 1,
+                            (prop.get(it) as LocalDate).year
+                        )
+                } else {
+                    mp[(prop.get(it) as LocalDate).month] =
+                        Pair(1, (prop.get(it) as LocalDate).year)
+                }
+            }
+        }
+    }
+    var month = Month.APRIL
+    var year = 2021
+    val result = mp.toList().sortedByDescending { (_, value) -> value.first }.toMap()
+    for (m in result) {
+        month = m.key
+        year = m.value.second
+        break
+    }
+    return MonthYear(month, year)
+}
+
+fun MutableList<MonthWrapper>.changeConfig(
     isCollapse: Boolean,
-    item: List<MonthWrapper>
-): MutableList<List<MonthWrapper>> {
-    this.filter { it == item }.firstOrNull().also {
+    item: List<DateWrapper>
+): MutableList<MonthWrapper> {
+    this.filter { it.dates == item }.firstOrNull().also {
         it?.let {
-            val newMonthWrapper: MutableList<MonthWrapper> = mutableListOf()
-            it.forEach {
-                newMonthWrapper.add(MonthWrapper(it.months, isCollapsed = isCollapse))
+            val newDateWrapper: MutableList<DateWrapper> = mutableListOf()
+            it.dates.forEach {
+                newDateWrapper.add(DateWrapper(it.date, isCollapsed = isCollapse))
             }
             this.mapIndexed { index, list ->
-                if (list == item) {
-                    this[index] = newMonthWrapper
+                if (list.dates == item) {
+                    this[index].dates = newDateWrapper
                 }
             }
         } ?: return this

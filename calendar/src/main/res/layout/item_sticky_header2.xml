@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_4"
+    android:weightSum="7"
+    android:layout_marginBottom="@dimen/dp_8"
+    android:orientation="horizontal">
+
+    <TextView
+        android:textColor="#808080"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_weight="1"
+        android:text="SUN"
+        android:gravity="center" />
+
+    <TextView
+        android:textColor="#808080"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_weight="1"
+        android:text="MON"
+        android:gravity="center" />
+
+    <TextView
+        android:textColor="#808080"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_weight="1"
+        android:text="TUE"
+        android:gravity="center" />
+
+    <TextView
+        android:textColor="#808080"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_weight="1"
+        android:text="WED"
+        android:gravity="center" />
+
+    <TextView
+        android:textColor="#808080"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_weight="1"
+        android:text="THU"
+        android:gravity="center" />
+
+    <TextView
+        android:textColor="#808080"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_weight="1"
+        android:text="FRI"
+        android:gravity="center" />
+
+    <TextView
+        android:textColor="#808080"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_weight="1"
+        android:text="SAT"
+        android:gravity="center" />
+
+</LinearLayout>

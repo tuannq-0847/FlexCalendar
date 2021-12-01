@@ -1,29 +1,34 @@
 package com.karleinstein.smoothcalendar
 
+import android.graphics.Color
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
+import com.karleinstein.smoothcalendar.utils.isSameMonth
 import com.karleinstein.smoothcalendar.utils.isToday
-import kotlinx.android.synthetic.main.item_layout_days.view.*
+import kotlinx.android.synthetic.main.item_layout_days_2.view.*
+import org.threeten.bp.Month
 
 internal class DayCalendarAdapter(
-    onClickItem: (item: MonthWrapper) -> Unit = {},
-    private val onDateClickListener: (monthWrapper: MonthWrapper) -> Unit
-) : BaseRecyclerAdapter<MonthWrapper>(object : DiffUtil.ItemCallback<MonthWrapper>() {
+    private val month: Month,
+    onClickItem: (item: DateWrapper) -> Unit = {},
+    private val onDateClickListener: (dateWrapper: DateWrapper) -> Unit
+) : BaseRecyclerAdapter<DateWrapper>(object : DiffUtil.ItemCallback<DateWrapper>() {
     //force trigger
     override fun areItemsTheSame(
-        oldItem: MonthWrapper,
-        newItem: MonthWrapper
+        oldItem: DateWrapper,
+        newItem: DateWrapper
     ): Boolean {
-        return true
+        return oldItem === newItem
     }
 
     override fun areContentsTheSame(
-        oldItem: MonthWrapper,
-        newItem: MonthWrapper
+        oldItem: DateWrapper,
+        newItem: DateWrapper
     ): Boolean {
-        return false
+        return oldItem==newItem
     }
 
 }, onClickItem) {
@@ -32,24 +37,29 @@ internal class DayCalendarAdapter(
 
     override fun getLayoutRes(viewType: Int): Int = if (viewType == 3) {
         R.layout.item_layout_days_collapse
-    } else R.layout.item_layout_days
+    } else R.layout.item_layout_days_2
 
-    override fun onBind(itemView: View, item: MonthWrapper, position: Int) {
+    override fun onBind(itemView: View, item: DateWrapper, position: Int) {
         with(itemView) {
-            text_day.text = item.months.dayOfMonth.toString()
+            text_day_2.text = item.date.dayOfMonth.toString()
             if (selectedPosition == position) {
                 onDateClickListener(item)
             }
-
-            parent_days.setColorClicked(selectedPosition == position)
-            if (item.months.isToday()) {
-                text_day.typeface = ResourcesCompat.getFont(context, R.font.proximanova_bold)
-                text_day.setTextColor(
+            text_day_2.setColorClicked(selectedPosition == position)
+            if (item.date.isSameMonth(month.value)) {
+                text_day_2.setTextColor(Color.parseColor("#808080"))
+            }
+            if (item.date.isToday()) {
+                text_day_2.typeface = ResourcesCompat.getFont(context, R.font.proximanova_bold)
+                text_day_2.setTextColor(
                     resources.getColor(
-                        android.R.color.black,
+                        android.R.color.holo_red_dark,
                         resources.newTheme()
                     )
                 )
+            }
+            if(item.stateMarked==StateMarked.MARKED_BOLD){
+                text_day_2.setBackgroundResource(R.drawable.bg_selected_day_2)
             }
         }
     }
@@ -73,20 +83,8 @@ internal class DayCalendarAdapter(
 
     private fun View.setColorClicked(isClicked: Boolean = true) {
         if (isClicked) {
-            this.setBackgroundColor(
-                resources.getColor(
-                    R.color.colorRedBB,
-                    resources.newTheme()
-                )
-            )
-            this.setBackgroundResource(R.drawable.bg_selected_day)
+            this.setBackgroundResource(R.drawable.bg_selected_day_2)
         } else {
-            this.setBackgroundColor(
-                resources.getColor(
-                    android.R.color.black,
-                    resources.newTheme()
-                )
-            )
             this.setBackgroundResource(R.drawable.bg_unselected_day)
         }
     }

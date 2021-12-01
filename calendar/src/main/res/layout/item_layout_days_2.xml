@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_days_2"
+    android:layout_width="match_parent"
+    android:layout_height="32dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text_day_2"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:gravity="center"
+        android:textColor="#3C3844"
+        android:layout_gravity="center"
+        android:textAlignment="center" />
+</LinearLayout>
