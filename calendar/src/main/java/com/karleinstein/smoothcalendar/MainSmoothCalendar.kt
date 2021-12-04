@@ -23,7 +23,6 @@ class MainSmoothCalendar(context: Context?, attrs: AttributeSet?) : LinearLayout
         orientation = VERTICAL
         addCalendarView()
         smoothCalendar?.setOnCalendarListener(this)
-        setTime(mutableListOf(DateWrapper(LocalDate.now())))
     }
 
     private fun addCalendarView() {

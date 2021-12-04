@@ -46,14 +46,16 @@ class SmoothCalendar(context: Context, attrs: AttributeSet?) :
     fun setTime(dateHistory: List<DateWrapper>) {
         if (dateHistory.isEmpty())
             return
+        Log.d("DateHistory ", "setTime: $dateHistory")
         if (dateHistory.size == 1) {
-            dateHistory.first().stateMarked = StateMarked.MARKED_BOLD
+            dateHistory.first().stateMarked = StateMarked.ONLY_MARKED
         } else {
             for (i in dateHistory.indices) {
-                if (i in arrayOf(0, dateHistory.size - 1))
-                    dateHistory[i].stateMarked = StateMarked.MARKED_BOLD
-                else
-                    dateHistory[i].stateMarked = StateMarked.MARKED
+                when (i) {
+                    0 -> dateHistory[i].stateMarked = StateMarked.END_MARKED
+                    dateHistory.size - 1 -> dateHistory[i].stateMarked = StateMarked.STARTED_MARKED
+                    else -> dateHistory[i].stateMarked = StateMarked.MARKED
+                }
             }
         }
         val dateWrapperSet = mutableSetOf<DateWrapper>()

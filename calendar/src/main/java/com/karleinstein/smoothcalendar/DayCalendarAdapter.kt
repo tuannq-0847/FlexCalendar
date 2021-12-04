@@ -1,7 +1,6 @@
 package com.karleinstein.smoothcalendar
 
 import android.graphics.Color
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
@@ -58,8 +57,22 @@ internal class DayCalendarAdapter(
                     )
                 )
             }
-            if(item.stateMarked==StateMarked.MARKED_BOLD){
-                text_day_2.setBackgroundResource(R.drawable.bg_selected_day_2)
+            when (item.stateMarked) {
+                StateMarked.ONLY_MARKED -> {
+                    text_day_2.setBackgroundResource(R.drawable.bg_selected_day_2)
+                }
+                StateMarked.STARTED_MARKED -> {
+                    parent_days_2.setBackgroundResource(R.drawable.bg_start_marked)
+                    text_day_2.setBackgroundResource(R.drawable.bg_selected_day_2)
+                }
+                StateMarked.END_MARKED->{
+                    parent_days_2.setBackgroundResource(R.drawable.bg_end_marked)
+                    text_day_2.setBackgroundResource(R.drawable.bg_selected_day_2)
+                }
+                StateMarked.MARKED->{
+                    parent_days_2.setBackgroundResource(R.drawable.bg_marked)
+                }
+                else -> {}
             }
         }
     }

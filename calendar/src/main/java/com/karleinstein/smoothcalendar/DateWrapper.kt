@@ -11,7 +11,9 @@ data class DateWrapper(
 )
 
 enum class StateMarked {
-    MARKED_BOLD,
+    ONLY_MARKED,
+    STARTED_MARKED,
+    END_MARKED,
     MARKED,
     NONE
 }
