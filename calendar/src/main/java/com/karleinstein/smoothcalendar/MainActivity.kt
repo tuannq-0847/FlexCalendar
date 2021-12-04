@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity(), CalendarListener{
 
     }
 
-    override fun onSnapPositionChange(data: MonthWrapper) {
+    override fun onSnapPositionChange(data: MonthWrapper, snapPosition: Int) {
 
     }
 

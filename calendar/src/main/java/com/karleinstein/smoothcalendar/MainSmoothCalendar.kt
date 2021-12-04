@@ -2,15 +2,17 @@ package com.karleinstein.smoothcalendar
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.karleinstein.smoothcalendar.utils.CalendarListener
 import org.threeten.bp.DayOfWeek
-import org.threeten.bp.LocalDate
 import org.threeten.bp.Month
 import org.threeten.bp.YearMonth
+import java.lang.IndexOutOfBoundsException
 
 class MainSmoothCalendar(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs),
     CalendarListener {
@@ -50,11 +52,22 @@ class MainSmoothCalendar(context: Context?, attrs: AttributeSet?) : LinearLayout
 
     }
 
-    override fun onSnapPositionChange(data: MonthWrapper) {
+    override fun onSnapPositionChange(data: MonthWrapper, snapPosition: Int) {
         val result = "${
             data.month.month.name.lowercase().replaceFirstChar { it.uppercase() }
         } ${data.month.year}"
         view?.findViewById<TextView>(R.id.text_month)?.text = result
+        view?.findViewById<ImageView>(R.id.arrow_right)?.setOnClickListener {
+            try {
+                smoothCalendar?.smoothScrollToPosition(snapPosition + 1)
+            } catch (ex: IndexOutOfBoundsException) {
+                Log.e("MainSmoothCalendar", "onSnapPositionChange: ", ex)
+            }
+        }
+        view?.findViewById<ImageView>(R.id.arrow_left)?.setOnClickListener {
+            if (snapPosition > 0)
+                smoothCalendar?.smoothScrollToPosition(snapPosition - 1)
+        }
     }
 
     override fun onSwipe(direction: SwipeDirection, item: MonthWrapper) {

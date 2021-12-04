@@ -94,7 +94,7 @@ class SmoothCalendar(context: Context, attrs: AttributeSet?) :
         val snapPosition = snapHelper.getSnapPosition(smoothCalendar)
         val isSnapPositionChanged = this.snapPosition != snapPosition
         if (isSnapPositionChanged) {
-            calendarListener?.onSnapPositionChange(boundedMonths[snapPosition])
+            calendarListener?.onSnapPositionChange(boundedMonths[snapPosition], snapPosition)
             this.snapPosition = snapPosition
         }
     }

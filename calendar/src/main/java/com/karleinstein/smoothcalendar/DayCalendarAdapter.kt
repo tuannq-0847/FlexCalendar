@@ -62,11 +62,11 @@ internal class DayCalendarAdapter(
                     text_day_2.setBackgroundResource(R.drawable.bg_selected_day_2)
                 }
                 StateMarked.STARTED_MARKED -> {
-                    parent_days_2.setBackgroundResource(R.drawable.bg_start_marked)
+                    view_bg_start.setBackgroundResource(R.drawable.bg_marked)
                     text_day_2.setBackgroundResource(R.drawable.bg_selected_day_2)
                 }
                 StateMarked.END_MARKED->{
-                    parent_days_2.setBackgroundResource(R.drawable.bg_end_marked)
+                    view_bg_end.setBackgroundResource(R.drawable.bg_marked)
                     text_day_2.setBackgroundResource(R.drawable.bg_selected_day_2)
                 }
                 StateMarked.MARKED->{

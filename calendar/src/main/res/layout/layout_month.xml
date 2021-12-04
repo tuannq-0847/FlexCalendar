@@ -3,26 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/dp_4"
-    android:gravity="center"
     android:layout_marginBottom="@dimen/dp_8"
+    android:gravity="center"
     android:orientation="horizontal">
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/arrow_left"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:src="@drawable/ic_arrow_left" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_month"
-        android:textStyle="bold"
-        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_16"
         android:layout_marginEnd="@dimen/dp_16"
         android:textColor="@android:color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/arrow_right"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:src="@drawable/ic_arrow_right" />

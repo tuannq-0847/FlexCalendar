@@ -9,7 +9,7 @@ interface CalendarListener {
 
     fun getMonth(month: Month)
 
-    fun onSnapPositionChange(data: MonthWrapper)
+    fun onSnapPositionChange(data: MonthWrapper, snapPosition: Int)
 
     fun onSwipe(direction: SwipeDirection, item: MonthWrapper)
 
