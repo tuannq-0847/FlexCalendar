@@ -43,25 +43,55 @@ class SmoothCalendar(context: Context, attrs: AttributeSet?) :
 //        setOnTouchListener(this)
     }
 
+    private fun groupConsecutiveDay(
+        dateHistory: List<DateWrapper>,
+    ): MutableMap<String, MutableList<DateWrapper>> {
+        val new = dateHistory.sortedBy { it.date.dayOfYear }
+        val mp = mutableMapOf<String, MutableList<DateWrapper>>()
+        var count = 0
+        var key = "Calendar: $count"
+        mp[key] = mutableListOf(new[0])
+        for (i in 1 until new.size) {
+            val last = new[i - 1]
+            if (new[i].date.dayOfYear - last.date.dayOfYear == 1) {
+                if (mp.containsKey(key))
+                    mp[key] = mp[key]!!.apply {
+                        add(new[i])
+                    }
+                else
+                    mp[key] = mutableListOf(new[i])
+            } else {
+                count++
+                key = "Calendar: $count"
+                mp[key] = mutableListOf(new[i])
+            }
+        }
+        return mp
+    }
+
+
     fun setTime(dateHistory: List<DateWrapper>) {
         if (dateHistory.isEmpty())
             return
-        Log.d("DateHistory ", "setTime: $dateHistory")
-        if (dateHistory.size == 1) {
-            dateHistory.first().stateMarked = StateMarked.ONLY_MARKED
-        } else {
-            for (i in dateHistory.indices) {
-                when (i) {
-                    0 -> dateHistory[i].stateMarked = StateMarked.END_MARKED
-                    dateHistory.size - 1 -> dateHistory[i].stateMarked = StateMarked.STARTED_MARKED
-                    else -> dateHistory[i].stateMarked = StateMarked.MARKED
+        val mp = groupConsecutiveDay(dateHistory)
+        val dateWrapperSet = mutableSetOf<DateWrapper>()
+        mp.forEach {
+            if (it.value.size == 1) {
+                dateHistory.first().stateMarked = StateMarked.ONLY_MARKED
+                dateWrapperSet.add(it.value.first())
+            } else {
+                for (i in 0 until it.value.size) {
+                    when (i) {
+                        0 -> it.value[i].stateMarked = StateMarked.STARTED_MARKED
+                        it.value.size - 1 -> it.value[i].stateMarked =
+                            StateMarked.END_MARKED
+                        else -> it.value[i].stateMarked = StateMarked.MARKED
+                    }
+                    dateWrapperSet.add(it.value[i])
                 }
             }
         }
-        val dateWrapperSet = mutableSetOf<DateWrapper>()
-        dateHistory.forEach {
-            dateWrapperSet.add(it)
-        }
+
         val data = customAdapter.currentList.map { month ->
             month.dates = month.dates.map { date ->
                 val d = dateWrapperSet.find {
