@@ -77,7 +77,7 @@ class SmoothCalendar(context: Context, attrs: AttributeSet?) :
         val dateWrapperSet = mutableSetOf<DateWrapper>()
         mp.forEach {
             if (it.value.size == 1) {
-                dateHistory.first().stateMarked = StateMarked.ONLY_MARKED
+                it.value.first().stateMarked = StateMarked.ONLY_MARKED
                 dateWrapperSet.add(it.value.first())
             } else {
                 for (i in 0 until it.value.size) {

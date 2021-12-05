@@ -27,7 +27,7 @@ internal class DayCalendarAdapter(
         oldItem: DateWrapper,
         newItem: DateWrapper
     ): Boolean {
-        return oldItem==newItem
+        return oldItem == newItem
     }
 
 }, onClickItem) {
@@ -65,14 +65,15 @@ internal class DayCalendarAdapter(
                     view_bg_start.setBackgroundResource(R.drawable.bg_marked)
                     text_day_2.setBackgroundResource(R.drawable.bg_selected_day_2)
                 }
-                StateMarked.END_MARKED->{
+                StateMarked.END_MARKED -> {
                     view_bg_end.setBackgroundResource(R.drawable.bg_marked)
                     text_day_2.setBackgroundResource(R.drawable.bg_selected_day_2)
                 }
-                StateMarked.MARKED->{
+                StateMarked.MARKED -> {
                     parent_days_2.setBackgroundResource(R.drawable.bg_marked)
                 }
-                else -> {}
+                else -> {
+                }
             }
         }
     }
