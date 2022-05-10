@@ -29,7 +29,7 @@ class CustomCalendarAdapter(
         oldItem: MonthWrapper,
         newItem: MonthWrapper
     ): Boolean {
-        return oldItem == newItem
+        return false
     }
 
 }), View.OnTouchListener {

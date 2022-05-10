@@ -40,6 +40,7 @@ internal class DayCalendarAdapter(
 
     override fun onBind(itemView: View, item: DateWrapper, position: Int) {
         with(itemView) {
+            if(item.date.dayOfMonth!=null)
             text_day_2.text = item.date.dayOfMonth.toString()
             if (selectedPosition == position) {
                 onDateClickListener(item)
