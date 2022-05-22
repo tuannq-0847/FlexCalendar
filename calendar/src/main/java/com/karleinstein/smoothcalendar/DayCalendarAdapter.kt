@@ -40,23 +40,26 @@ internal class DayCalendarAdapter(
 
     override fun onBind(itemView: View, item: DateWrapper, position: Int) {
         with(itemView) {
-            if(item.date.dayOfMonth!=null)
-            text_day_2.text = item.date.dayOfMonth.toString()
+            if (text_day_2 != null) {
+                text_day_2.text = item.date.dayOfMonth.toString()
+                text_day_2.setColorClicked(selectedPosition == position)
+
+                if (item.date.isSameMonth(month.value)) {
+                    text_day_2.setTextColor(Color.parseColor("#808080"))
+                }
+                if (item.date.isToday()) {
+                    text_day_2.typeface = ResourcesCompat.getFont(context, R.font.proximanova_bold)
+                    text_day_2.setTextColor(
+                        resources.getColor(
+                            android.R.color.holo_red_dark,
+                            resources.newTheme()
+                        )
+                    )
+                }
+            }
+
             if (selectedPosition == position) {
                 onDateClickListener(item)
-            }
-            text_day_2.setColorClicked(selectedPosition == position)
-            if (item.date.isSameMonth(month.value)) {
-                text_day_2.setTextColor(Color.parseColor("#808080"))
-            }
-            if (item.date.isToday()) {
-                text_day_2.typeface = ResourcesCompat.getFont(context, R.font.proximanova_bold)
-                text_day_2.setTextColor(
-                    resources.getColor(
-                        android.R.color.holo_red_dark,
-                        resources.newTheme()
-                    )
-                )
             }
             when (item.stateMarked) {
                 StateMarked.ONLY_MARKED -> {
