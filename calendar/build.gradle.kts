@@ -44,7 +44,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.1")
     //leak canary
 //    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
-    implementation("com.jakewharton.threetenabp:threetenabp:1.2.1")
+    api("com.jakewharton.threetenabp:threetenabp:1.2.1")
     implementation("com.auth0.android:jwtdecode:2.0.0")
 }
 
