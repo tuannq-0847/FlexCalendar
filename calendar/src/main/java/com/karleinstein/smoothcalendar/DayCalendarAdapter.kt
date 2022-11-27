@@ -48,10 +48,10 @@ internal class DayCalendarAdapter(
                     text_day_2.setTextColor(Color.parseColor("#808080"))
                 }
                 if (item.date.isToday()) {
-                    text_day_2.typeface = ResourcesCompat.getFont(context, R.font.proximanova_bold)
+//                    text_day_2.typeface = ResourcesCompat.getFont(context, R.font.proximanova_bold)
                     text_day_2.setTextColor(
                         resources.getColor(
-                            android.R.color.holo_red_dark,
+                            android.R.color.white,
                             resources.newTheme()
                         )
                     )

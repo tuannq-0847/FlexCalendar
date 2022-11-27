@@ -3,64 +3,71 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/dp_4"
-    android:weightSum="7"
     android:layout_marginBottom="@dimen/dp_8"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:weightSum="7">
 
     <TextView
-        android:textColor="#808080"
+        style="@style/BaseTheme.Text"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_weight="1"
+        android:gravity="center"
         android:text="SUN"
-        android:gravity="center" />
+        android:textColor="#808080" />
 
     <TextView
-        android:textColor="#808080"
+        style="@style/BaseTheme.Text"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_weight="1"
+        android:gravity="center"
         android:text="MON"
-        android:gravity="center" />
+        android:textColor="#808080" />
 
     <TextView
-        android:textColor="#808080"
+        style="@style/BaseTheme.Text"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_weight="1"
+        android:gravity="center"
         android:text="TUE"
-        android:gravity="center" />
+        android:textColor="#808080" />
 
     <TextView
-        android:textColor="#808080"
+        style="@style/BaseTheme.Text"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_weight="1"
+        android:gravity="center"
         android:text="WED"
-        android:gravity="center" />
+        android:textColor="#808080" />
 
     <TextView
-        android:textColor="#808080"
+        style="@style/BaseTheme.Text"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_weight="1"
+        android:gravity="center"
         android:text="THU"
-        android:gravity="center" />
+        android:textColor="#808080" />
 
     <TextView
-        android:textColor="#808080"
+        style="@style/BaseTheme.Text"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_weight="1"
+        android:gravity="center"
         android:text="FRI"
-        android:gravity="center" />
+        android:textColor="#808080" />
 
     <TextView
-        android:textColor="#808080"
+        style="@style/BaseTheme.Text"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_weight="1"
+        android:gravity="center"
         android:text="SAT"
-        android:gravity="center" />
+        android:textColor="#808080" />
 
 </LinearLayout>
