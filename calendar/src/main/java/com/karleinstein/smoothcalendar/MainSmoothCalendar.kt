@@ -22,9 +22,11 @@ class MainSmoothCalendar(context: Context?, attrs: AttributeSet?) : LinearLayout
     private var view: View? = null
 
     init {
-        orientation = VERTICAL
-        addCalendarView()
-        smoothCalendar?.setOnCalendarListener(this)
+        if (!isInEditMode) {
+            orientation = VERTICAL
+            addCalendarView()
+            smoothCalendar?.setOnCalendarListener(this)
+        }
     }
 
     private fun addCalendarView() {

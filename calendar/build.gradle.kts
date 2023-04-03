@@ -12,14 +12,12 @@ val group = project.property("group") as String
 val version = project.property("version") as String
 
 android {
-    compileSdkVersion(31)
+    compileSdk = 31
     buildToolsVersion = "29.0.3"
 
     defaultConfig {
-        minSdkVersion(23)
-        targetSdkVersion(31)
-        versionCode = 1
-        versionName = version
+        minSdk = 23
+        targetSdk = 31
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -34,14 +32,14 @@ android {
 
 dependencies {
 //    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
-    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.10")
+    implementation("androidx.recyclerview:recyclerview:1.3.0")
     testImplementation("junit:junit:4.13.2")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.0")
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("androidx.core:core-ktx:1.3.2")
+    implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation("androidx.core:core-ktx:1.8.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     //leak canary
 //    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
     api("com.jakewharton.threetenabp:threetenabp:1.2.1")
